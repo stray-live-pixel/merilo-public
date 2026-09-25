@@ -1,0 +1,40 @@
+{
+  "defaults": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "xhigh",
+    "repeats": 5
+  },
+  "concurrency": 5,
+  "checks": [
+    {
+      "id": "clarity",
+      "category": "Понятность",
+      "type": "score",
+      "question": "Понятно ли клиенту, что изменилось и что нужно сделать?",
+      "levels": [
+        "Непонятно",
+        "Понятно"
+      ],
+      "__external__": {
+        "section": "Редакторская проверка"
+      }
+    },
+    {
+      "id": "action",
+      "category": "Действие",
+      "type": "noul",
+      "question": "Содержит ли объявление явное действие, которое клиент должен выполнить?"
+    },
+    {
+      "id": "audience",
+      "category": "Аудитория",
+      "type": "choice",
+      "question": "Для кого написано объявление?",
+      "choices": [
+        "администраторы",
+        "все пользователи",
+        "разработчики"
+      ]
+    }
+  ]
+}

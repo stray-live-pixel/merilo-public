@@ -1,0 +1,299 @@
+[
+  {
+    "id": "support",
+    "title": "Choice · обращение клиента",
+    "context": "После обновления приложение закрывается сразу после запуска. Переустановка не помогла. Оплата подписки прошла нормально.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "support",
+          "type": "choice",
+          "question": "Выбери отдел по основной проблеме клиента. Упоминание оплаты без проблемы не делает обращение платёжным. Если данных недостаточно, выбери ручной разбор.",
+          "choices": [
+            "оплата",
+            "техническая поддержка",
+            "возврат",
+            "ручной разбор"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "feedback",
+    "title": "Choice · обратная связь, 5 повторов",
+    "context": "Вечером экран слишком яркий. Добавьте, пожалуйста, тёмную тему.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 5
+      },
+      "concurrency": 2,
+      "checks": [
+        {
+          "id": "feedback",
+          "type": "choice",
+          "question": "Классифицируй отзыв: ошибка — существующая функция работает неправильно; пожелание — просьба добавить возможность; вопрос — запрос объяснения.",
+          "choices": [
+            "ошибка",
+            "пожелание",
+            "вопрос",
+            "другое"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "letter",
+    "title": "Choice · письмо с несколькими вопросами",
+    "context": "Здравствуйте! Верните оплату по заказу 1842: услугу мы не получили. Если возврат невозможен, укажите пункт договора и правовое основание отказа.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "letter",
+          "type": "choice",
+          "question": "Выбери маршрут: бухгалтерия для платежей, юристы для правовых вопросов, поддержка для использования продукта. Если нужны несколько отделов, выбери ручной разбор.",
+          "choices": [
+            "бухгалтерия",
+            "юристы",
+            "поддержка",
+            "ручной разбор"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "arithmetic",
+    "title": "Noul · простое утверждение",
+    "context": "2 + 2 = 4",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "arithmetic",
+          "type": "noul",
+          "question": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "invoices",
+    "title": "Noul · проверка по контексту",
+    "context": "Счёт A оплачен. Счёт B ожидает оплаты.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "invoices",
+          "type": "noul",
+          "question": "Все ли счета оплачены?"
+        }
+      ]
+    }
+  },
+  {
+    "id": "refund",
+    "title": "Noul · просьба о возврате",
+    "context": "Прошу отменить заказ и вернуть оплату.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "refund",
+          "type": "noul",
+          "question": "Просит ли автор вернуть деньги?"
+        }
+      ]
+    }
+  },
+  {
+    "id": "contradiction",
+    "title": "Noul · противоречие в тексте",
+    "context": "Все окна в комнате закрыты. Одно окно в этой же комнате сейчас открыто.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "contradiction",
+          "type": "noul",
+          "question": "Содержит ли текст явное противоречие?"
+        }
+      ]
+    }
+  },
+  {
+    "id": "repeat",
+    "title": "Noul · медиана пяти оценок",
+    "context": "2 + 2 = 4",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 5
+      },
+      "concurrency": 2,
+      "checks": [
+        {
+          "id": "repeat",
+          "type": "noul",
+          "question": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "hundred",
+    "title": "Noul · 100 параллельных оценок",
+    "context": "2 + 2 = 4",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 100
+      },
+      "concurrency": 100,
+      "checks": [
+        {
+          "id": "hundred",
+          "type": "noul",
+          "question": ""
+        }
+      ]
+    }
+  },
+  {
+    "id": "instructions",
+    "title": "Score · понятность, 2 уровня",
+    "context": "Нажмите Сохранить и дождитесь подтверждения.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "instructions",
+          "type": "score",
+          "question": "Оцени понятность инструкции.",
+          "levels": [
+            "Трудно понять",
+            "Легко понять"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "severity",
+    "title": "Score · дефект, 3 уровня",
+    "context": "Кнопка сдвинута на пиксель, всё работает.",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "severity",
+          "type": "score",
+          "question": "Оцени серьёзность дефекта.",
+          "levels": [
+            "Косметический",
+            "Есть обходной путь",
+            "Работа заблокирована"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "readability",
+    "title": "Score · читаемость, 4 уровня",
+    "context": "func add(a, b int) int {\n    return a + b\n}",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 1
+      },
+      "concurrency": 5,
+      "checks": [
+        {
+          "id": "readability",
+          "type": "score",
+          "question": "Оцени читаемость кода.",
+          "levels": [
+            "Очень трудно понять",
+            "Требует частого перечитывания",
+            "В целом понятно",
+            "Легко читать"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "readability-repeat",
+    "title": "Score · читаемость, 5 повторов",
+    "context": "func add(a, b int) int {\n    return a + b\n}",
+    "config": {
+      "defaults": {
+        "model": "deepseek/deepseek-v4.1-flash",
+        "effort": "xhigh",
+        "repeats": 5
+      },
+      "concurrency": 3,
+      "checks": [
+        {
+          "id": "readability-repeat",
+          "type": "score",
+          "question": "Оцени читаемость кода.",
+          "levels": [
+            "Трудно понять",
+            "Легко понять"
+          ]
+        }
+      ]
+    }
+  }
+]

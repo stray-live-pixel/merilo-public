@@ -1,0 +1,53 @@
+{
+  "defaults": {
+    "model": "deepseek/deepseek-v4.1-flash",
+    "effort": "xhigh",
+    "repeats": 5
+  },
+  "concurrency": 10,
+  "checks": [
+    {
+      "id": "readability",
+      "category": "Читаемость",
+      "type": "score",
+      "question": "Оцени ясность имён, структуры и потока выполнения.",
+      "levels": [
+        "Трудно понять",
+        "Легко понять"
+      ],
+      "concurrency": 3,
+      "__external__": {
+        "report_group": "code-quality",
+        "min_score": 0.75
+      }
+    },
+    {
+      "id": "app-kind",
+      "category": "Назначение",
+      "type": "choice",
+      "question": "Определи основной тип приложения.",
+      "choices": [
+        "CLI",
+        "веб-сервер",
+        "библиотека"
+      ],
+      "model": "google/gemini-2.5-flash",
+      "effort": "low",
+      "repeats": 3,
+      "concurrency": 2
+    },
+    {
+      "id": "network",
+      "category": "Возможности",
+      "type": "noul",
+      "question": "Выполняет ли приложение HTTP-запросы?",
+      "repeats": 1,
+      "__external__": {
+        "tags": [
+          "network"
+        ],
+        "ticket_id": 123
+      }
+    }
+  ]
+}
